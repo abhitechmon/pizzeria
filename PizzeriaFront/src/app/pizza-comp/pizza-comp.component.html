@@ -1,0 +1,48 @@
+<div class="row mb-2 p-3 p-md-5 m-md-3 justify-content-around">
+  <input class="form-control mb-5" type="text" name="search" [(ngModel)]="searchText" autocomplete="off"
+    placeholder=" Search for a pizza">
+  <div class="col-md-5" *ngFor="let pizza of pizzas | filter:searchText">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <strong class="d-inline-block mb-2 text-success">₹{{pizza.price}}</strong>
+        <h3 class="mb-0">{{pizza.name}}
+          <!-- {{pizza.type=="veg"?<i class="fas fa-leaf"></i>:"{{<i class="fas fa-drumstick-bite"></i>}}"}} -->
+          <i class="far"
+            [ngClass]="{'fas fa-leaf green' : pizza.type==='veg', 'fas fa-drumstick-bite red': pizza.type==='nonveg'}">
+          </i>
+        </h3>
+        <div class="mb-1 text-muted"><strong>Ingredients: </strong><span
+            *ngFor="let ingredient of pizza.ingredients">{{ingredient}}, </span></div>
+        <div class="mb-1 text-muted"><strong>Toppings: </strong><span *ngFor="let topping of pizza.topping">{{topping}},
+          </span></div>
+        <p class="card-text mb-auto">{{pizza.description}}</p>
+        <!-- <a href="#" class="stretched-link">Continue reading</a> -->
+        <button class="btn btn-warning btn-default" data-toggle="modal" data-target="#exampleModal"
+          (click)="addToCart(pizza)">Add to cart</button>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+        <img src={{pizza.image}} height="350px" width="350px">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cart Alert</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Item Added to Cart!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

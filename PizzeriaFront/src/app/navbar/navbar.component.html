@@ -1,0 +1,88 @@
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a routerLink="/home-comp">Home</a>
+  <a routerLink="/about-comp">About</a>
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse " id="navbarNav">
+    <ul class="navbar-nav mr-auto d-lg-flex align-items-center">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/"><span style="font-size: 30px; font-family: 'Lobster', cursive;">Pizzeria
+          </span> <img src="../../assets/PizzeriaLogo.png" alt="pizzeria" height="50px" /></a>
+      </li>
+      <ng-container *ngIf="flag">
+
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/pizza-comp">Order Pizza</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/ingredient-comp">Build your pizza</a>
+        </li>
+      </ng-container>
+    </ul>
+    <!-- <form class="form-inline my-2 my-lg-0"> -->
+    <ul class="navbar-nav d-lg-flex align-items-center">
+      <!-- <li class="nav-item mr-2">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      </li> -->
+      <ng-container *ngIf="flag">
+        <li class="nav-item">
+          <button type="button" class="btn btn-success btn-sm mr-3" data-toggle="modal"
+            data-target="#exampleModal2">Logout</button>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="!flag">
+        <li class="nav-item">
+          <button type="button" class="btn btn-success btn-sm mr-3" routerLink="/login">Login</button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="btn btn-info btn-sm mr-3" routerLink="/register">Register</button>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="flag">
+        <li class="nav-item">
+
+          <div class="dropdown">
+            <button class="btn btn-warning text-light font-weight-bold dropbtn" routerLink="/cart-comp"><i
+                class="fas fa-shopping-cart"></i> Shopping Cart</button>
+            <div class="dropdown-content">
+
+              <a routerLink="/cart-comp" *ngFor="let pizza of cart">
+                <img src={{pizza.image}} height="40px" width="40px">
+                &nbsp;
+                {{pizza.name}}
+              </a>
+              <a (click)="refresh()"><i class="fas fa-sync"></i></a>
+
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+    <!-- </form> -->
+  </div>
+</nav>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Want to go away?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-danger mr-3" data-dismiss="modal" (click)="logout()">Logout</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+#FullStack project of a mock Pizzeria app using Angular, Express and MongoDB as the data source

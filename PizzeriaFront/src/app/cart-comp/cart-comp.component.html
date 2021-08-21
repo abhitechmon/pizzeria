@@ -1,0 +1,65 @@
+<div class="row mb-2 p-3 p-md-5 m-md-3 justify-content-around">
+  <div class="col-md-8" *ngFor="let pizza of cart">
+    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+      <div class="col p-4 d-flex flex-column position-static">
+        <strong class="d-inline-block mb-2 text-success">₹{{pizza.price}}</strong>
+        <h3 class="mb-0">{{pizza.name}}
+          <!-- {{pizza.type=="veg"?<i class="fas fa-leaf"></i>:"{{<i class="fas fa-drumstick-bite"></i>}}"}} -->
+          <i class="far"
+            [ngClass]="{'fas fa-leaf green' : pizza.type==='veg', 'fas fa-drumstick-bite red': pizza.type==='nonveg'}">
+          </i>
+        </h3>
+        <div class="mb-1 text-muted"><strong>Toppings: </strong><span *ngFor="let topping of pizza.topping">{{topping}},
+          </span></div>
+        <div class="mb-1 text-muted"><strong>Ingredients: </strong><span
+            *ngFor="let ingredient of pizza.ingredients">{{ingredient}}, </span></div>
+        <!-- <div class="mb-1 text-muted"><strong>Extra Added Ingredients: </strong><span
+            *ngFor="let ingredient of pizza.ingredients">Sauce, </span></div> -->
+        <br />
+        <h5 class="card-text mb-auto"> &nbsp; Qty: {{pizza.qty}}</h5>
+        <div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" (click)="qtyDecrease(pizza)"><i
+                class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-secondary" (click)="qtyIncrease(pizza)"><i
+                class="fas fa-plus"></i></button>
+
+          </div>
+          <button type="button" class="btn btn-warning ml-5" data-toggle="modal" [attr.data-target]="'#'+pizza._id">
+            Add Ingredients
+          </button>
+        </div>
+        <br />
+        <button type="button" class="btn btn-danger" (click)="deletePizza(pizza._id)"><i class="fas fa-trash-alt"></i>
+          Remove from Cart</button>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+        <img src={{pizza.image}} height="350px" width="350px">
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" [id]="pizza._id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Available Ingredients</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <app-ingredient-comp (getTotPriceIngredients)="getTotPriceIngredients($event)"></app-ingredient-comp>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-8">
+    <h2>Total Price: ₹{{tot}}</h2>
+  </div>
+</div>
